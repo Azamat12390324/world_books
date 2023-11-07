@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %} {% block title %}Мир книг{% endblock title %} {% block header %}
+{{ text_head }}
+{% endblock header %} {% block content%}
+Добро пожаловать на сайт Мир книг. Это очень простой веб-сайт, написанный на Django и Bootstrap. Разработан на Python в качестве учебного примера с использованием PyCharm.
+
+Сведения из базы данных
+Количество книг - {{num_books}}
+Ha складе в наличии - {{num_instances}}
+Количество авторов - {{nurn_authors}}
+КНиги
+{% if num_books > 0 %}
+{% for obj in books %}
+
+{{obj.title}}, Цeнa:{{obj.price}} sum.
+
+{% endfor %}
+{% endif %}
+{% endblock content %}
