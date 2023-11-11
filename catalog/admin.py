@@ -14,7 +14,7 @@ from django.utils.html import format_html
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ("first_name", "last_name", "photo",)
-    fields = ['last_name', "first_name", ("date_of_birth", 'photo')]
+    fields = ['last_name', "first_name", "about", ("date_of_birth", 'photo')]
     readonly_fields = ['show_photo']
     def show_photo(self, obj):
         return format_html(
@@ -65,4 +65,3 @@ admin.site.register(Genre)
 admin.site.register(Language)
 admin.site.register(Publisher)
 admin.site.register(Status)
-

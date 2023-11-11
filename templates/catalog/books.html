@@ -1,9 +1,0 @@
-{% extends "layouts/base.html" %} {% block content %}
-List books in DB
-{% if books %} {% for book in books %} {% endfor %}
-Name	Author	Genre	Cover	Show cover
-{{ book.title }}	{{ book.display_author }}	{{ book.genre }}	connect	Show
-{% else %}
-There are no books in the database
-
-{% endif %} {% endblock %}

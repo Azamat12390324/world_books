@@ -1,0 +1,50 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+<div class="container text-start">
+    <div class="row my-2">
+        <hl>Book name - "{{ book.title }}"</hl>
+    </div>
+    <div class="row my-2">
+        <p><strong>Author:</strong>
+            {% for author in book.author.all %}
+            <a href="/authors/{{ author.id}}">
+                {{ author.first_name }} {{author.last_name}}</a>
+            {% endfor %}
+        </div>
+        <img src="{{ book.photo.url }}" alt="connect"
+        style="max-height:200px">
+        <a href= "{{ book.photo.url}}"  class="btn btn-primary"
+        target="-blank">Show</a>
+        <div class="row my-2">=<div class "col">
+            <p><strong>Price:</strong> {{ book.price }} sum.</p>
+        </div>
+    </div>
+    <div class="row my-2">
+        <p><strong>Description:</strong> {{ book.summary }}</p>
+    </div>
+    <div class="row my-2">
+        <div class="col mx-2 bg-primary text-white">
+            <p><strong>Genre:</strong> {{ book.genre }}</p>
+        </div>
+        <div class="col mx-2 bg-primary text-white">
+            <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+        </div>
+        <div class="col mx-2 bg-primary text-white">
+            <p><strong>Language:</strong> {{ book.language }}</p>
+            </div>
+            <div class="col mx-2 bg-primary text-white">
+                <p><strong>Publisher</strong> {{book.publisher}}</p>
+            </div>
+        </div>
+        <div style="margin-left:20px; margin-top:lOpx">
+            <h4>Number of copies of books in the database</h4>
+            {% for copy in book.bookinstance_set.all %}
+            <hr>
+            <p class="text-muted">
+                <strong>Inventory number:</strong> {{copy.id}}</p>
+                <p class="text-success">
+                    <strong>Status:YC copy of the book:</strong> {{copy.status}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endblock %}

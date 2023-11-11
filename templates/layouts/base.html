@@ -1,13 +1,84 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale= l">
+        <link rel="stylesheet" href=" {% static 'css/bootstrap.min.css' %} " >
+        <script defer src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+    </head>
+    <body>
+        <div class="container-fluid p-1 bg-prirnary text-white text-center">
+            <div class="row">
+                <div class="col-2 text-start">
+                    <img src=" {% static 'images/books.png' %} " width="70" height="70">
+                </div>
+                <div class="col-10 ">
+                    <h3>Books and electronic books</h3>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row bg-warning text-center" >
+                <h6>
+                    <a style="padding-right: 10px;" href="{% url 'index' %}">Main page</a>
+                    <a style="padding-right: 10px;" href="{% url 'about' %}">About</a>
+                    <a style="padding-right: 10px;" href="{% url 'contact' %}">Contact</a>
+                </h6>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row text-center text-primary fs-1 fw-bold">
+                <div>{% block header%}
 
-Books and electronic books
-Main page About Contact
-{% block header%} {% endblock header %}
-{% block sidebar %}
-All books All author
-{% endblock sidebar %}
-{% block content%} {% endblock content %}
-{% block footer %}
-Footer
+                    {% endblock header %}
+                </div>
+            </div>
+            <div class="row text-center text-body">
+                <div class="col-2 ">
+                    {% block sidebar %}
+                    <nav class="nav flex-column">
+                        <a class="nav-link" href="{% url 'books' %}">All books</a>
+                        <a class="nav-link" href="{% url 'author-list' %}">All author</a>
+                    </nav>
+                    {% endblock sidebar %}
+                </div>
+                <div class="col-10" >
+                    <div class="row text-center">
+                        {% block content%}
+                        {% endblock content %}
 
-{% endblock footer%}
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if page_obj.paginator.num_pages > 1%}
+                                    {% if page_obj.has_previous %}
+                                        <a href="?page=1">&laquo;First</a>
+                                        <a href="?page={{page.obj.previous_page_number}}">Previous</a>
+                                    {% endif %}
+
+                                    <span class="current">
+                                        page.{{page_obj.number}}
+                                            in {{page_obj.paginator.num_pages}}.
+                                    </span>
+
+                                    {% if page_obj.has_next %}
+                                        <a href="?page={{page.obj.next_page_number}}">Next</a>
+                                        <a href="?page={{page_obj.paginator.num_pages}}">Previous &raquo;</a>
+                                    {% endif %}
+                                {% endif%}
+                            </span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row bg-info text-center text-dark small lh-sm pt-2 my-2">
+                    {% block footer %}
+                    <p>Copyright "3/23/2023/Azamat"</p>
+                    {% endblock footer%}
+                </div>      
+            </div>
+        </div>
+    </body>
+</html>

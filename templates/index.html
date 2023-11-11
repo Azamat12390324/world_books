@@ -1,0 +1,48 @@
+{% extends "layouts/base.html" %}
+{% block title %}world books{% endblock title %}
+{% block header %}
+<h5>{{ text_head }}</h5>
+{% endblock header %}
+{% block content%}
+<div class="container-fluid my-2">
+    <div class="row bg-success text-white mx-2">
+        <div class="col text-center">
+            <p>Welcome to  <em>World Books<em>
+        </div>
+    </div>
+    <div class="row text-center text-dark lh-2">
+        <h4>Data in DataBase</h4>
+    </div>
+    <div class="row my-2 text-white">
+        <div class="col mx-2 bg-primary">Book count -
+            {{num_books}}
+        </div>
+        <div class="col mx-2 bg-primary">In stock -
+            {{num_instances}}</div>
+            <div class="col mx-2 bg-primary">Author count -
+            {{num_authors}}</div>
+                </div>                
+                <div class="row text-center text-dark lh-2">
+                    <h3>Books</h3>
+                </div>
+                {% if num_books > 0 %}
+                <div class="row rny-2">
+                    {% for obj in books %}
+                    <div class="card" style="width: 9rem;">
+                        <img src="{{ obj.photo.url }}" class="card-img-top">
+                        <div class="card-body">
+                            <p class= "card-text small">
+                                {{obj.title}}, Price:{{obj.price}} sum.
+                            </p>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <div class="row text-center text-dark lh-2">
+                    <h6>This is page visited - {{num_visits}}</h6>
+                </div>
+</div>
+    {% endblock content %}
