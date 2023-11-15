@@ -50,13 +50,14 @@ class BookAdmin(admin.ModelAdmin):
 
 @admin.register(BookInstance)
 class BookinstanceAdmin(admin.ModelAdmin):
+    list_display = ("book", "status", 'customer', "due_back", id)
     list_filter = ("book", "status")
     fieldsets = (
         ("Kitob nusxasi", {
             'fields': ("book", "inv_nom")
         }),
         ("Kitobning tugash statusi", {
-            "fields": ("status", "due_back")
+            "fields": ("status", "due_back",'customer')
         }),
     )
 

@@ -40,6 +40,16 @@
                     <nav class="nav flex-column">
                         <a class="nav-link" href="{% url 'books' %}">All books</a>
                         <a class="nav-link" href="{% url 'author-list' %}">All author</a>
+                    {%if user.is_authenticated %}
+                       <a class="nav-link" href="{% url 'logout' %} ?next={{request.path}}">
+                        logout
+                       </a>
+                       <div>Login: {{user.get_username}}</div>
+                       <a href="{% url 'edit_authors'%}" class="nav-link">Edit authors</a>
+                       <a href="{% url 'my-customer'%}" class="nav-link">My customer</a>
+                    {% else %} 
+                    <a href="{% url 'login'%} ?next={{request.path}}" class="nav-link"></a>
+                    {% endif %}    
                     </nav>
                     {% endblock sidebar %}
                 </div>

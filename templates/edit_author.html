@@ -1,0 +1,37 @@
+{% extends 'layouts/base.html'%}
+{% block content %}
+<div class="row text-start lh-2">
+    <h5>List authors for edit</h5>
+</div>
+    <div class="row">
+        <div class="col-2"></div>
+        <a href="/authors_add/{{authors_add}}"> Add Authors</a>
+        <div class="col-8"></div>
+        <table class="table table-striped table-bordered text-start">
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Last_name</th>
+                <th>Edit</th>
+            </thead>
+            <tbody>
+                {% if author %}
+                    {% for i in author.all %}
+                        <tr>
+                            <td> {{author.id }}</td>
+                            <td> {{author.first_name}} </td>
+                            <td> {{author.last_name}} </td>
+                            <td><a href="/edit_author/{{author.id}}">Edit</a>,
+                                <a href="/delete/{{author.id}}">Delete</a>    
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                <p>DB not found authors</p>
+                {% endif %}
+            </tbody>
+        </table> 
+        <div class="col-2"></div>
+    </div>
+    
+{% endblock %}
