@@ -46,6 +46,7 @@
                        </a>
                        <div>Login: {{user.get_username}}</div>
                        <a href="{% url 'edit_authors'%}" class="nav-link">Edit authors</a>
+                       <a href="{% url 'edit_books'%}" class="nav-link">Edit  books</a>
                        <a href="{% url 'my-customer'%}" class="nav-link">My customer</a>
                     {% else %} 
                     <a href="{% url 'login'%} ?next={{request.path}}" class="nav-link"></a>

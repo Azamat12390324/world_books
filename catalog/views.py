@@ -3,11 +3,34 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from catalog.models import Book, BookInstance, Author, Genre, Language, Publisher,Status 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from catalog.forms import Add_authors, Form_edit_author
 from django.urls   import reverse
+from django.urls import reverse_lazy
 
+
+class BookCreate(CreateView):
+    model = Book
+    fields= "__all__"
+    success_url = reverse_lazy("edit_books")
+    template_name = "book_form.html"
+
+class BookUpdate(UpdateView):
+    model = Book
+    fields = "__all__"
+    success_url = reverse_lazy("edit_books")
+    
+class BookDelete(DeleteView):
+    model = Book
+    fields = "__all__"
+    success_url = reverse_lazy("edit_books")
+    template_name = "book_confirm_delete.html"
+
+def edit_books(request):
+    book = Book.objects.all()
+    context = {"book" : book}
+    return render(request, "edit_books.html", context)
 
 def edit_author(request, id):
     author = Author.objects.get(id=id)
