@@ -14,4 +14,7 @@ urlpatterns = [
     path("contact/", views.contact, name="contact"),
     path("mybooks/", views.LoadetBooksByUser.as_view(), name="my-customer"),
     path("edit_authors/", views.edit_authors, name='edit_authors'),
+    path("authors_add/", views.add_author, name="authors_add"),
+    path("delete/<int:id>/", views.delete, name="delete"),
+    path("edit_author/<int:id>/", views.edit_author, name="edit_author"),
 ]

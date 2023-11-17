@@ -17,10 +17,10 @@
                     <a href="{{author.id}}">{{ author.first_name}} {{ author.last_name}}</a>
                 </td>
                 <td>
-                    <img src="{{author.photo.url}}" alt="author img" style="max-height: 100px;">
+                    <img src="{{author.photo}}" alt="author img" style="max-height: 100px;">
                 </td>
                 <td>
-                    <a href="{{author.photo.url}}" class="btn btn-primary" target="_blank">Show photo</a>
+                    <a href="{{author.photo}}" class="btn btn-primary" target="_blank">Show photo</a>
                 </td>
             </tr>
             {% endfor %}

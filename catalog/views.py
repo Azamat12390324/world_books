@@ -1,18 +1,42 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from catalog.models import Book, BookInstance, Author, Genre, Language, Publisher,Status 
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from catalog.forms import Add_authors
+from catalog.forms import Add_authors, Form_edit_author
 from django.urls   import reverse
+
+
+def edit_author(request, id):
+    author = Author.objects.get(id=id)
+    if request.method == 'POST':
+        instanse = Author.objects.get(pk=id)
+        form = Form_edit_author(request.POST, request.Files, instance=instance)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/edit_authors/")
+        
+        else:
+            form = Form_edit_author(instance=author)
+            content = {"form":form}
+            return render(request, "edit_author.html",content)
+    
+
+def delete(request, id):
+    try:
+        author = Author.objects.get(id=id)
+        author.delete()
+        return HttpResponseRedirect("/edit_authors/")
+    except:
+        return HttpResponseNotFound("<h2>Author not found!</h2>")
 
 
 def add_author(request):
     if request.method == "POST":
         form = Add_authors(request.POST, request.FILES)
-        if form.valid():
+        if form.is_valid():
             first_name = form.cleaned_data.get("first_name")
             last_name = form.cleaned_data.get("last_name")
             date_of_birth = form.cleaned_data.get("date_of_birth")
@@ -29,7 +53,7 @@ def add_author(request):
             # save data
             obj.save()
             # refresh in list data author
-            return HttpResponseRedirect(reverse("authors-list"))
+            return HttpResponseRedirect(reverse("author-list"))
     else:
         form = Add_authors()
         context = {"form" : form}
@@ -47,7 +71,7 @@ class LoadetBooksByUser(LoginRequiredMixin, ListView):
 def edit_authors(request):
     author = Author.objects.all()
     context = {"author" : author}
-    return render(request, "edit_author.html", context)
+    return render(request, "edit_authors.html", context)
 
 
 
